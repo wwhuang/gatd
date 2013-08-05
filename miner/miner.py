@@ -1,6 +1,6 @@
 import pymongo
 import time
-import bson
+from bson.json_util import dumps
 
 DATABASE          = 'getallthedata'
 TABLE_UNFORMATTED = 'unformatted_archive'
@@ -15,4 +15,4 @@ def mineData(query, host="localhost", port=18222, sort_key=None):
 	else:
 		data = db.find(query)
 
-	return data
+	return dumps(data)
