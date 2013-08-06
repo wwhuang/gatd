@@ -12,15 +12,15 @@ app = Flask(__name__)
 app.config.from_object('fl_config')
 
 
-@app.route('/miner')
+@app.route('/miner', methods=["GET", "POST"])
 def mineData():
     if request.get_json(silent=True):
-        mq = json.loads(request.get_json())
+        mq = request.get_json()
         data = miner.mineData(mq)
     else:
         data = miner.mineData()
 
-    r = Response(response=data, status=200,  mimetype="application/json")
+    r = Response(response=json.dumps(data), status=200,  mimetype="application/json")
     return r
 
 if __name__ == '__main__':
